@@ -1,0 +1,7 @@
+Proyectos de Estructura de datos:
+Solver:
+  resuelve las sopas de letras de n*n 
+  objetivo: busqueda eficiente de datos asociados
+Calculadora:
+  como su nombre lo indica un calculadora con las funciones basicas y graficas 
+  objetivo hace uso d pilas, comprender maneras mas eficiente de resolver problemas sencillos; conversion postfija 
