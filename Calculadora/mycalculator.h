@@ -2,7 +2,11 @@
 #define MYCALCULATOR_H
 
 #include <QMainWindow>
-
+#include "calculator.h"
+#include <QDebug>
+#include <QHash>
+#include <QTableWidget>
+#include <QList>
 namespace Ui {
     class MyCalculator;
 }
@@ -18,7 +22,12 @@ public:
 private:
     Ui::MyCalculator *ui;
     void escribe(QString e);
+    QHash<QChar,double> variables;
+    QTableWidget *f;
+    void updateVars();
+    QString previewCheck(QString e);
 private slots:
+    void on_updateVrs_clicked();
     void on_btSolve1_clicked();
     void on_btFx_clicked();
     void on_btPower_clicked();

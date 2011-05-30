@@ -18,3 +18,6 @@ HEADERS  += mycalculator.h \
     calculator.h
 
 FORMS    += mycalculator.ui
+
+RESOURCES += \
+    icons.qrc

@@ -23,3 +23,6 @@ FORMS    += solver.ui
 
 OTHER_FILES += \
     README.txt
+
+RESOURCES += \
+    icons.qrc

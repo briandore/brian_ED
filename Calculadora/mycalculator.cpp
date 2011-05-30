@@ -6,11 +6,36 @@ MyCalculator::MyCalculator(QWidget *parent) :
     ui(new Ui::MyCalculator)
 {
     ui->setupUi(this);
+   // f = new QTableWidget(this);
+
 }
 
 MyCalculator::~MyCalculator()
 {
     delete ui;
+}
+
+QString MyCalculator::previewCheck(QString e){
+    int i ,j;
+
+    foreach(QChar a, this->variables.keys()){
+        (e.replace(a,QString::number(variables[a])));
+    }
+return e;
+    /*foreach(QChar a, this->variables.keys()){
+        i= e.indexOf(a);
+        if(i== -1) continue;
+
+        if(i > 0){
+           j =  e.at(i-1).toAscii();
+           if(!(j > 64 && j < 91)){
+               if(i < (e.length() -1)){
+                   j =  e.at(i + 1).toAscii();
+                   if(!(j > 64 && j < 91))
+
+               }
+           }
+    }*/
 }
 
 void MyCalculator::escribe(QString e){
@@ -137,5 +162,32 @@ void MyCalculator::on_btFx_clicked()
 
 void MyCalculator::on_btSolve1_clicked()
 {
+    calculator n;
+    QString d = previewCheck(this->ui->expresion->text());
+    this->ui->expresion->setText(QString::number(n.toPostFijo(d)));
+}
 
+void MyCalculator::on_updateVrs_clicked()
+{
+    QChar v = this->ui->var->text().toUpper().at(0);
+    bool *good =new bool();
+    double d = this->ui->value->text().toDouble(good);
+    if(v != 'X' && good )
+        this->variables[v] = d;
+    this->updateVars();
+}
+
+void MyCalculator::updateVars(){
+   QList<QChar> vas( this->variables.keys());
+   QStringList  f;
+   QList<double> d(this->variables.values());
+   foreach(QChar c, vas){
+       f.append(c);
+   }
+   for(int i = 0; i< f.length(); i++){
+       f[i]+= "->" + QString::number(d.at(i));
+
+   }
+   this->ui->variables->clear();
+   this->ui->variables->addItems(f);
 }

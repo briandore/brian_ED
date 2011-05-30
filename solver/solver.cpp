@@ -14,6 +14,7 @@ solver::solver(QWidget *parent) :
     qDebug()<<lista.lookup("wo");
     qDebug()<<lista.lookup("wor");
     qDebug()<<lista.lookup("word");*/
+    this->min = 3;
 }
 
 solver::~solver()
@@ -37,9 +38,7 @@ void solver::on_actionLoad_words_triggered()
                 if(!line.contains(" "))
                     if(!list.contains(line)){
                        list.append(line.toUpper());
-           //            this->lista.addword(line.toUpper());
-           //            this->lista.addword2(line.toUpper());
-                       this->lista.addword3(line.toUpper());
+                        this->lista.addword3(line.toUpper());
                    }
 
          }
@@ -47,6 +46,7 @@ void solver::on_actionLoad_words_triggered()
 
     this->ui->listWidget->addItems(this->list);
     qDebug()<<this->list.count();
+
 }
 
 void solver::liberar(){
@@ -81,11 +81,11 @@ void solver::on_actionLoad_Soup_triggered()
          for(int y = 0; y < this->lenY; y++){
              QString i = a.readLine(); int at = 0;qDebug()<<i;
              for(int x = 0; x < this->lenX; x++){
-                    l = new QLabel();
+                    l = new QLabel(); l->setMinimumSize(12,12);
                  this->ui->soup->addWidget(l,y,x);
                  l->setText(QString(i.at(at)));
                   sopa[y][x] =   i.at(at);
-                    at +=2;
+                    at ++;
 
              }
          }
@@ -95,66 +95,25 @@ void solver::on_actionLoad_Soup_triggered()
 }
 
 void solver::lookUpwords(QString line,QString arcline){
-    if(line.length()< 3) return;
+    if(line.length()< this->min) {return;}
 
-    for(int i = 3; i<line.count(); i++){
+    for(int i = this->min; i<line.count(); i++){
             int result = this->lista.lookup3(line.left(i));
             if(result == 0)break;
             if(result == 2){
-                this->ui->FoundedList->addItem(line.left(i));
+                this->ans.append(line.left(i));
                 cont++;
             }
         }
-        for(int i = 3; i<arcline.count(); i++){
+        for(int i = this->min; i<arcline.count(); i++){
             int result = this->lista.lookup3(arcline.left(i));
             if(result == 0)break;
             if(result == 2){
-                this->ui->FoundedList->addItem(arcline.left(i));
+                this->ans.append(arcline.left(i));
                 cont++;
             }
 
-    /*    for(int i = 3; i<line.count(); i++){
-        int result = this->lista.lookup2(line.left(i));
-        if(result == 0)break;
-        if(result == 2){
-            this->ui->FoundedList->addItem(line.left(i));
-            cont++;
-        }
-    }
-    for(int i = 3; i<arcline.count(); i++){
-        int result = this->lista.lookup2(arcline.left(i));
-        qDebug()<<result;
-        if(result == 0)break;
-        if(result == 2){
-            this->ui->FoundedList->addItem(arcline.left(i));
-            cont++;
-        }
-    /*  for(int i = 3; i<line.count(); i++){
-        int result = this->lista.lookup(line.left(i));
-        if(result == 0)break;
-        if(result == 2){
-            this->ui->FoundedList->addItem(line.left(i));
-            cont++;
-        }
-    }
-    for(int i = 3; i<arcline.count(); i++){
-        int result = this->lista.lookup(arcline.left(i));
-        qDebug()<<result;
-        if(result == 0)break;
-        if(result == 2){
-            this->ui->FoundedList->addItem(arcline.left(i));
-            cont++;
-        }
-        /*if(this->lista.lookup(line.left(3)))
-          this->ui->FoundedList->addItem(line.left(3));
-        else
-            break;
-        qDebug()<<line.left(i)<<this->list.count(line.left(i))<<"---"<<arcline.left(i)<<this->list.count(arcline.left(i));
-*/
-      /*  if(list.contains(line.left(i))){
-         this->ui->FoundedList->addItem(line.left(i)); cont++;
-     }if(list.contains(arcline.left(i))){ cont++;
-     this->ui->FoundedList->addItem(arcline.left(i));}*/
+
     }
     lookUpwords(line.mid(1),arcline.mid(1));
 }
@@ -171,6 +130,7 @@ void solver::lookUpInHV(dir d){
     //    qDebug()<<wordD;
     //    qDebug()<<wordU;
         this->lookUpwords(wordD,wordU);
+        qDebug()<<wordD<<"#"<<wordU;
 
     }
 }
@@ -182,20 +142,24 @@ void solver::lookVerticals(){
 }
 
 void solver::lookHorizontals(){
-    qDebug()<<"hos";
+
     this->lookUpInHV(Horizontal);
 }
 
 void solver::lookDiagonal1(){
    QString word, arcword, wordL,arcwordL;;
-    for(int i = 3; i<=this->lenY; i++){
+    for(int i = (this->min-1); i<this->lenY; i++){
         word="", arcword="",wordL="", arcwordL="";;
         for(int j = 1;j<=i; j++ ){
             word+= this->sopa[lenY-j][i-j];
             arcword.prepend(this->sopa[lenY-j][i-j]);
+
             wordL+= this->sopa[i-j][lenX-j];
             arcwordL.prepend(this->sopa[i-j][lenX-j]);
         }
+        qDebug()<<word<<"dia1"<<arcword<<"#"<<i;
+        qDebug()<<wordL<<"arc"<<arcwordL;
+
         this->lookUpwords(word,arcword);
         this->lookUpwords(wordL,arcwordL);
 
@@ -204,14 +168,17 @@ void solver::lookDiagonal1(){
 
 void solver::lookDiagonal2(){
     QString word, arcword, wordL,arcwordL;
-     for(int i = 2; i<this->lenY; i++){
+     for(int i = (this->min - 1); i<this->lenY; i++){
          word="", arcword="",wordL="", arcwordL="";
          for(int j = 0;j<=i; j++ ){
              word+= this->sopa[j][i-j];
              arcword.prepend(this->sopa[j][i-j]);
+
              wordL+= this->sopa[lenY-1-j][lenX-i+j-1];
              arcwordL.prepend(this->sopa[lenY-1-j][lenX-i+j-1]);
          }
+         qDebug()<<word<<"dia2"<<arcword<<"#"<<i;
+          qDebug()<<wordL<<"arc"<<arcwordL;
          this->lookUpwords(word,arcword);
          this->lookUpwords(wordL,arcwordL);
 
@@ -249,14 +216,22 @@ void solver::on_actionSolve_triggered()
     if(!this->lenX > 0)
         return ;
     QTime time;
-    time.start();
+
+    this->ans.clear();
+    this->ui->FoundedList->clear();
     this->cont = 0;
+    this->min = this->ui->spinBox->value();
     qDebug()<<this->lenY<<"#"<<lenX;
+
+    time.start();
     this->lookHorizontals();
     this->lookVerticals();
     this->lookDiagonal2();
     this->lookDiagonal1();
 
-    qDebug()<<cont;
-    qDebug()<<time.elapsed();
+    int tim =time.elapsed();
+
+    this->ui->lcdTime->display(tim);
+    this->ui->FoundedList->addItems(this->ans);
+    this->ui->lcdFound->display(this->ans.count());
 }

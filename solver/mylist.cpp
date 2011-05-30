@@ -62,10 +62,12 @@ void MyList::addword3(QString W){
 int MyList::lookup3(QString w){
     if(!this->lista3.contains(w.left(3)))
         return 0;
+    //qDebug()<<w.left(3)<<w.mid(3);
     return this->lista3[w.left(3)].lookup31(w.mid(3));
 }
 
 int MyList::lookup31(QString w){
+    qDebug()<<w;
     if(w.isEmpty() && this->word) return 2;
 
     if(w.isEmpty()) return 1;
@@ -73,7 +75,8 @@ int MyList::lookup31(QString w){
     if( !(lista.contains(w.at(0))) )
          return 0;
 
-     return lista[w.at(0)].lookup(w.mid(1));
+
+     return lista[w.at(0)].lookup31(w.mid(1));
 
 }
 

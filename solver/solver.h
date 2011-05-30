@@ -24,7 +24,7 @@ enum dir{Vertical,Horizontal};
 
 private:
     Ui::solver *ui;
-    QStringList list;
+    QStringList list, ans;
     QChar **sopa;
     MyList lista;
     void lookVerticals();
@@ -39,9 +39,11 @@ private:
     void liberar();
     int lenX, lenY;
     int cont;
+    int min;
     int readLen(int where, QString word);
     void crearArray();
     void imprimir();
+
 private slots:
     void on_actionSolve_triggered();
     void on_actionLoad_Soup_triggered();
