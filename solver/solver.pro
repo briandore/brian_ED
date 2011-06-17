@@ -22,7 +22,11 @@ HEADERS  += solver.h \
 FORMS    += solver.ui
 
 OTHER_FILES += \
-    README.txt
+    README.txt \
+    Resource/testpuzzle.txt \
+    Resource/testing \
+    Resource/SoloPalabras.txt \
+    Resource/puzzle
 
 RESOURCES += \
     icons.qrc

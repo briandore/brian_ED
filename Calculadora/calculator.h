@@ -10,7 +10,7 @@ class operators{
   public:
     enum ops{
         MAS = 2, MENOS =2 , POR = 3, ENTRE = 3, POTENCIA = 4, SEN = 5,COS = 5,
-        PARABRE = 10, PARCIERRA = 0, NONE =-1
+        PARABRE = 10, PARCIERRA = 0, NONE =-1,E = 4
     };
 
     QMap<QString , ops> opse;
@@ -18,7 +18,7 @@ class operators{
  operators()
  {
      this->opse.insert("+",MAS);
-     this->opse.insert("-",MENOS);
+     this->opse.insert("~",MENOS);
      this->opse.insert("*",POR);
      this->opse.insert("/",ENTRE);
      this->opse.insert("^",POTENCIA);
@@ -26,6 +26,7 @@ class operators{
      this->opse.insert("COS",COS);
      this->opse.insert("(",PARABRE);
      this->opse.insert(")",PARCIERRA);
+     this->opse.insert("E",E);
  }
 
 public:

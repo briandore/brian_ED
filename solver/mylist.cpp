@@ -67,7 +67,7 @@ int MyList::lookup3(QString w){
 }
 
 int MyList::lookup31(QString w){
-    qDebug()<<w;
+
     if(w.isEmpty() && this->word) return 2;
 
     if(w.isEmpty()) return 1;

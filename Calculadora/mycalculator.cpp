@@ -105,7 +105,7 @@ void MyCalculator::on_btPlus_clicked()
 
 void MyCalculator::on_btMinus_clicked()
 {
-     this->escribe("-");
+     this->escribe("~");
 }
 
 void MyCalculator::on_btBy_clicked()
@@ -157,13 +157,18 @@ void MyCalculator::on_btPower_clicked()
 
 void MyCalculator::on_btFx_clicked()
 {
-
+    this->ui->expresion->clear();
+    this->escribe("f(x) = ");
 }
 
 void MyCalculator::on_btSolve1_clicked()
 {
     calculator n;
     QString d = previewCheck(this->ui->expresion->text());
+    if(d.startsWith("f(x) = "))
+    {
+
+    }
     this->ui->expresion->setText(QString::number(n.toPostFijo(d)));
 }
 
@@ -190,4 +195,23 @@ void MyCalculator::updateVars(){
    }
    this->ui->variables->clear();
    this->ui->variables->addItems(f);
+}
+
+void MyCalculator::on_btGraph_clicked()
+{
+    QStringList l;
+    for(int i = 0; i<2/* this->ui->tableFx->rowCount()*/;i ++){
+   // if(!this->ui->tableFx->item(i,1)->text().isEmpty())
+        l.append(previewCheck(this->ui->tableFx->item(i,1)->text()));
+    qDebug()<<"dididudud";
+   }
+       p= new Plotter(this);
+         this->ui->lo->addWidget(p);
+       p->graph(l,-5,5);
+
+}
+
+void MyCalculator::on_btNegative_clicked()
+{
+    this->escribe("-");
 }

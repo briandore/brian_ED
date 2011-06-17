@@ -9,12 +9,8 @@ solver::solver(QWidget *parent) :
     this->lenX = 0 ;
     this->lenY = 0;
     this->init = false;
-/*    lista.addword("word");
-    qDebug()<<lista.lookup("w");
-    qDebug()<<lista.lookup("wo");
-    qDebug()<<lista.lookup("wor");
-    qDebug()<<lista.lookup("word");*/
     this->min = 3;
+    this->ui->dockWidget->setMinimumSize(100,500);
 }
 
 solver::~solver()
@@ -60,52 +56,66 @@ void solver::liberar(){
     this->init = false;
 }
 #include<QLabel>
+#include<QTableWidgetItem>
 void solver::on_actionLoad_Soup_triggered()
 {
     QString f =  QFileDialog::getOpenFileName(this," sopa","Cargar sopa de letras");
     if(f.isEmpty())
        return;
     QLabel *l ;
-
+    QTableWidgetItem *item;
     QFile file(f);
     if(file.open(QIODevice::ReadOnly)){
          QTextStream a(&file);
-         QString len = a.readLine();
-         this->lenX = readLen(len.indexOf("x:"),len);
-         this->lenY = readLen(len.indexOf("y:"),len);
-         this->crearArray();
+       //  QString len = a.readLine();
+      //   this->lenX = readLen(len.indexOf("x:"),len);
+        // this->lenY = readLen(len.indexOf("y:"),len);
 
-         for(int i = 0; i<this->ui->soup->count(); i++)
-             this->ui->soup->removeItem(this->ui->soup->itemAt(i));
+        // for(int y = 0; y < this->lenY; y++){
+         int y = 0;
+         while(!a.atEnd()){
+            QString i = a.readLine().trimmed(); int at = 0;
+             if(y== 0){
+                 for(int i = 0; i<this->ui->soup->count(); i++)
+                    this->ui->soup->removeItem(this->ui->soup->itemAt(i));
 
-         for(int y = 0; y < this->lenY; y++){
-             QString i = a.readLine(); int at = 0;qDebug()<<i;
-             for(int x = 0; x < this->lenX; x++){
-                    l = new QLabel(); l->setMinimumSize(12,12);
-                 this->ui->soup->addWidget(l,y,x);
-                 l->setText(QString(i.at(at)));
-                  sopa[y][x] =   i.at(at);
-                    at ++;
-
+                  this->lenX = i.length();
+                  this->lenY = lenX;this->crearArray();
              }
+             if(y == lenY)
+                 break;
+             for(int x = 0; x < this->lenX; x++){
+                l = new QLabel();
+                this->ui->soup->addWidget(l,y,x);
+                 l->setText(QString(i.at(x)));l->setMinimumSize(12,12);
+                  sopa[y][x] =   i.at(x);
+                    //at ++;
+                   // item = new QTableWidgetItem(QString(i.at(x)));
+                    //this->ui->lasoup->setItem(y,x,item);
+             }
+             y+=1;
          }
 
     }
+    //imprimir();
 
 }
 
 void solver::lookUpwords(QString line,QString arcline){
+
     if(line.length()< this->min) {return;}
 
-    for(int i = this->min; i<line.count(); i++){
-            int result = this->lista.lookup3(line.left(i));
+    for(int i = this->min; i<(line.count() +1); i++){
+
+        int result = this->lista.lookup3(line.left(i));
+
             if(result == 0)break;
             if(result == 2){
                 this->ans.append(line.left(i));
                 cont++;
             }
         }
-        for(int i = this->min; i<arcline.count(); i++){
+        for(int i = this->min; i<(arcline.count()+1); i++){
             int result = this->lista.lookup3(arcline.left(i));
             if(result == 0)break;
             if(result == 2){
@@ -120,17 +130,18 @@ void solver::lookUpwords(QString line,QString arcline){
 
 
 void solver::lookUpInHV(dir d){
-     QString wordU="", wordD="";
+     QString wordU="", wordD="", wordL="",wordR="";
     for(int i = 0; i < this->lenX;i++){
-        wordU=""; wordD="";
+        wordU=""; wordD=""; wordL=""; wordR="";
         for(int j = 0; j< this->lenY;j++ ){
-            wordU += sopa[(d ==Vertical?j:i)][(d ==Vertical?i:j)];
-            wordD.prepend(sopa[(d ==Vertical?j:i)][(d ==Vertical?i:j)]);
+            wordU += sopa[j][i];
+            wordD.prepend(sopa[j][i]);
+            wordR += sopa[i][j];
+            wordL.prepend(sopa[i][j]);
         }
-    //    qDebug()<<wordD;
-    //    qDebug()<<wordU;
+       // qDebug()<<wordD<<"WordU: "<<wordU<<"wordR: "<<wordR<<"wordL"<<wordL;
         this->lookUpwords(wordD,wordU);
-        qDebug()<<wordD<<"#"<<wordU;
+        this->lookUpwords(wordR,wordL);
 
     }
 }
@@ -157,8 +168,7 @@ void solver::lookDiagonal1(){
             wordL+= this->sopa[i-j][lenX-j];
             arcwordL.prepend(this->sopa[i-j][lenX-j]);
         }
-        qDebug()<<word<<"dia1"<<arcword<<"#"<<i;
-        qDebug()<<wordL<<"arc"<<arcwordL;
+
 
         this->lookUpwords(word,arcword);
         this->lookUpwords(wordL,arcwordL);
@@ -167,21 +177,34 @@ void solver::lookDiagonal1(){
 }
 
 void solver::lookDiagonal2(){
-    QString word, arcword, wordL,arcwordL;
-     for(int i = (this->min - 1); i<this->lenY; i++){
+    QString word, arcword, wordL,arcwordL, word2, arcword2,wordL2, arcwordL2;
+     for(int i = (this->min - 1); i < this->lenY; i++){
          word="", arcword="",wordL="", arcwordL="";
+         word2="", arcword2="",wordL2="", arcwordL2="";;
+
          for(int j = 0;j<=i; j++ ){
+
              word+= this->sopa[j][i-j];
              arcword.prepend(this->sopa[j][i-j]);
 
-             wordL+= this->sopa[lenY-1-j][lenX-i+j-1];
-             arcwordL.prepend(this->sopa[lenY-1-j][lenX-i+j-1]);
-         }
-         qDebug()<<word<<"dia2"<<arcword<<"#"<<i;
-          qDebug()<<wordL<<"arc"<<arcwordL;
-         this->lookUpwords(word,arcword);
-         this->lookUpwords(wordL,arcwordL);
+             if(i < (this->lenY -1)){
+                wordL+= this->sopa[lenY-1-j][lenX-i+j-1];
+                arcwordL.prepend(this->sopa[lenY-1-j][lenX-i+j-1]);
+              }
 
+
+             word2+= this->sopa[lenY-j -1][i-j];
+             arcword2.prepend(this->sopa[lenY-j-1][i-j]);
+
+             if((i-j) != (lenX-j-1)){
+                wordL2+= this->sopa[i-j][lenX-j-1];
+                arcwordL2.prepend(this->sopa[i-j][lenX-j-1]);
+            }
+         }
+        // qDebug()<<word<<"arcword: "<<arcword<<"word2: "<<word2<<"arc2"<<arcword2;
+        // qDebug()<<wordL<<"arcwordL: "<<arcwordL<<"wordL2: "<<wordL2<<"arcL2"<<arcwordL2;
+         this->lookUpwords(word,arcword);   this->lookUpwords(wordL,arcwordL);
+         this->lookUpwords(word2,arcword2); this->lookUpwords(wordL2,arcwordL2);
      }
 }
 
@@ -193,14 +216,19 @@ void solver::crearArray(){
      for(int i = 0; i < this->lenY; i++)
         this->sopa[i] = (QChar *) malloc(this->lenX * sizeof(QChar));
 
+  //   this->ui->lasoup->clear();
+  //   this->ui->lasoup->setRowCount(this->lenY);
+   //  this->ui->lasoup->setColumnCount(this->lenX);
     this->init = true;
 }
 
 void solver::imprimir(){
+   QString g="";
     for(int i = 0; i < lenY;i++){
         qDebug()<<"\n";
-        for(int j = 0; j < this->lenX; j++)
-            qDebug()<<this->sopa[i][j];
+       for(int j = 0; j < this->lenX; j++)
+          g +=this->sopa[i][j];
+       qDebug()<<g;
     }
 }
 
@@ -221,16 +249,17 @@ void solver::on_actionSolve_triggered()
     this->ui->FoundedList->clear();
     this->cont = 0;
     this->min = this->ui->spinBox->value();
-    qDebug()<<this->lenY<<"#"<<lenX;
+
 
     time.start();
     this->lookHorizontals();
-    this->lookVerticals();
+ //   this->lookVerticals();
     this->lookDiagonal2();
-    this->lookDiagonal1();
+ //   this->lookDiagonal1();
 
     int tim =time.elapsed();
 
+    ans.sort();
     this->ui->lcdTime->display(tim);
     this->ui->FoundedList->addItems(this->ans);
     this->ui->lcdFound->display(this->ans.count());

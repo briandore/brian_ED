@@ -16,45 +16,34 @@ double calculator::toPostFijo(QString e){
 
             while((!ops.isEmpty()) && (opt.getOperator(d))<= opt.getOperator(ops.top())){
 
-                  if(ops.top() == "(" && d == ")"){ ops.pop(); break;}
-                   if(ops.top() == "("){ break;}
-                /*  temp =s.pop();
-                    final.append(temp);
-                    if(b || opt.getOperator(ops.top()) >= opt.getOperator(tmop)  ){
-                        final.append(s.pop()); b =  false;
-                    }
-                    tmop =ops.pop();
+                if(ops.top() == "(" && d == ")"){ ops.pop(); break;}
+                if(ops.top() == "("){ break;}
+                final.append(ops.pop());
+             }
 
-
-*/final.append(ops.pop());
-               }
-       //  if(opt.getOperator(d)== operators::PARABRE)
-        //    b= true;
          if( opt.getOperator(d)!= operators::PARCIERRA)
-            //if(opt.getOperator(d)!= operators::PARABRE)
+
                ops.push(d);
 
        }else {
-          // s.push(d);
-
-           final.append(d);
+                 final.append(d);
        }
    }
 
-   qDebug()<<final;
+  // qDebug()<<final;
    return evaluar(final);
 
 }
 
 double calculator::evaluar(QStringList e){
-qDebug()<<e;
+//qDebug()<<e;
     QStack<double> pila;
 double t;
     foreach(QString d, e){
-qDebug()<<pila;
+//qDebug()<<pila;
       if(d == "+")
             pila.push(pila.pop() + pila.pop());
-      else if(d == "-"){
+      else if(d == "~"){
           t = pila.pop();
             pila.push(  pila.pop()-t);
         }
@@ -69,7 +58,10 @@ qDebug()<<pila;
       else if(d == "^"){
             t = pila.pop();
             pila.push(pow(pila.pop(),t));
-      }else
+      }else if(d == "E"){
+           t = pila.pop();
+             pila.push(pila.pop()*pow(10,t));
+      }  else
             pila.push(d.toDouble());
 
     }
@@ -87,9 +79,9 @@ QStringList calculator::getTokens(QString e){
 
    while(e.length() > 0){
         a = e.at(0);
-        if(a.isDigit() || a == '.'){
+        if(a.isDigit() || a == '.'|| a == '-'){
 
-            while( a.isDigit()|| a == '.'){
+            while( a.isDigit()|| a == '.' || a == '-'){
                 if(digit.isEmpty() && a == '.')
                     digit= "0";
                 digit += a;
@@ -103,7 +95,7 @@ QStringList calculator::getTokens(QString e){
            digit ="";
         }else {
             operat += a;
-            qDebug()<<operat;
+          //  qDebug()<<operat;
             if(opt.getOperator(operat)!= opt.NONE){
                list.append(operat);
                 operat ="";
@@ -114,6 +106,6 @@ QStringList calculator::getTokens(QString e){
 
 
     }
-   qDebug()<<list;
+   //qDebug()<<list;
    return list;
 }

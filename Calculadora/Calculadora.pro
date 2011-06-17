@@ -12,12 +12,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mycalculator.cpp \
-    calculator.cpp
+    calculator.cpp \
+    plotter.cpp
 
 HEADERS  += mycalculator.h \
-    calculator.h
+    calculator.h \
+    plotter.h
 
-FORMS    += mycalculator.ui
+FORMS    += mycalculator.ui \
+    plotter.ui
 
 RESOURCES += \
     icons.qrc

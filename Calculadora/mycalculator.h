@@ -7,6 +7,7 @@
 #include <QHash>
 #include <QTableWidget>
 #include <QList>
+#include "plotter.h"
 namespace Ui {
     class MyCalculator;
 }
@@ -23,10 +24,12 @@ private:
     Ui::MyCalculator *ui;
     void escribe(QString e);
     QHash<QChar,double> variables;
-    QTableWidget *f;
     void updateVars();
     QString previewCheck(QString e);
+    Plotter *p;
 private slots:
+    void on_btNegative_clicked();
+    void on_btGraph_clicked();
     void on_updateVrs_clicked();
     void on_btSolve1_clicked();
     void on_btFx_clicked();

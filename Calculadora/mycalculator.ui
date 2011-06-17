@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>337</height>
+    <width>487</width>
+    <height>335</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -216,7 +216,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>-</string>
+     <string>―</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btPar1">
@@ -328,8 +328,8 @@
      <rect>
       <x>20</x>
       <y>220</y>
-      <width>291</width>
-      <height>31</height>
+      <width>141</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -353,21 +353,21 @@
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>0</y>
-      <width>131</width>
+      <y>-10</y>
+      <width>161</width>
       <height>261</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>121</width>
-       <height>197</height>
+       <width>100</width>
+       <height>30</height>
       </rect>
      </property>
      <attribute name="label">
@@ -493,19 +493,139 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_2">
+    <widget class="QWidget" name="Funciones">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>121</width>
+       <width>151</width>
        <height>197</height>
       </rect>
      </property>
      <attribute name="label">
-      <string>Page 2</string>
+      <string>Funciones</string>
      </attribute>
+     <widget class="QWidget" name="horizontalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>171</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QTableWidget" name="tableFx">
+         <property name="rowCount">
+          <number>5</number>
+         </property>
+         <property name="columnCount">
+          <number>2</number>
+         </property>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>20</number>
+         </attribute>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <column>
+          <property name="text">
+           <string>F(x) = </string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Funciones</string>
+          </property>
+         </column>
+         <item row="0" column="0">
+          <property name="text">
+           <string>F1(x)</string>
+          </property>
+         </item>
+         <item row="0" column="1">
+          <property name="text">
+           <string>X^2 +3x + 5 + 2^-1</string>
+          </property>
+         </item>
+         <item row="1" column="0">
+          <property name="text">
+           <string>F2(x)</string>
+          </property>
+         </item>
+         <item row="2" column="0">
+          <property name="text">
+           <string>F3(x)</string>
+          </property>
+         </item>
+         <item row="3" column="0">
+          <property name="text">
+           <string>F4(x)</string>
+          </property>
+         </item>
+         <item row="4" column="0">
+          <property name="text">
+           <string>F5(x)</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>260</y>
+      <width>441</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="lo"/>
+   </widget>
+   <widget class="QPushButton" name="btCos_2">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>220</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>tan</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btGraph">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>220</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Graph</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btNegative">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>220</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>-</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -513,7 +633,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>460</width>
+     <width>487</width>
      <height>21</height>
     </rect>
    </property>
