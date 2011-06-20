@@ -9,6 +9,7 @@
 #include <QDebug>
 #include<QList>
 #include <mylist.h>
+#include <QMessageBox>
 namespace Ui {
     class solver;
 }
@@ -45,6 +46,7 @@ private:
     void imprimir();
 
 private slots:
+    void on_actionAbout_triggered();
     void on_actionSolve_triggered();
     void on_actionLoad_Soup_triggered();
     void on_actionLoad_words_triggered();

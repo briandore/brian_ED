@@ -8,6 +8,7 @@ Plotter::Plotter(QWidget *parent) :
     ui->setupUi(this);
     scene = new QGraphicsScene(0,0,600,600);
     this->ui->graph->setScene(scene);
+  srand(0);
   //  scene->addEllipse(0,0,10,10);
 }
 
@@ -28,12 +29,13 @@ void Plotter::graph(QStringList e, int xi, int xf){
 
     foreach(QString f, e)
     {
+        temp.clear();
         for(long double i = xi; i<= xf;i += ((xf-xi)/(this->scene->width()+0.0))){
             coord.x = (i);
-            coord.y =(c.toPostFijo(fx(f,i)));
+            coord.y =(c.solve(fx(f,i)));
 
-            //qDebug()<<f<<i<<":"<<coord.y;
-            temp.append(coord);
+           if(coord.y != INFINITY)
+                temp.append(coord);
         }
 
         foreach(punto p, temp){
@@ -48,17 +50,22 @@ void Plotter::graph(QStringList e, int xi, int xf){
     }
 
     QColor color;
-    foreach(QList<punto> pts, points){
+
+    for(int i = 0; i< points.count();i++){
+    //foreach(QList<punto> pts, points){
         //pts = relative(pts);
-       color.setRgb(rand()%255,rand()%255,rand()%255);
+        int r = rand()%255;
+        int g = rand()%255;
+        int b = rand()%255;
+        color = QColor::fromRgb(r,g,b);
        // color = Qt::blue;
 
-        foreach(punto po, pts){
+        foreach(punto po, points[i]){
          //   po.setX((po.x()- this->i)/this->scene->height());
        //     po.setY((po.y()- this->menor)/this->scene->width());
-            qDebug()<<((po.x- this->i)*this->scene->width()*0.5/xf);
-            qDebug()<<po.x<<"y:"<<po.y<<"mayor"<<mayor<<"min:"<<menor;
-            qDebug()<<(this->scene->height() - (po.y - this->menor)*300/mayor);
+            qDebug()<<((po.x- this->i)*this->scene->width()*0.5/xf)<<"x";
+          //  qDebug()<<po.x<<"y:"<<po.y<<"mayor"<<mayor<<"min:"<<menor;
+            qDebug()<<(this->scene->height() - (po.y - this->menor)*300/mayor)<<"y";
             this->scene->addEllipse(((po.x- this->i)*this->scene->width()*.5/xf),(this->scene->height() - (po.y - this->menor)*this->scene->height()*.5/mayor),1,1,QPen( color),QBrush(color));
         }
     }

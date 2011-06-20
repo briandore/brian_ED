@@ -46,6 +46,7 @@ public:
     calculator();
 
     double solve(QString e);
+private:
     bool valid(QString e);
     double toPostFijo(QString e);
     double evaluar(QStringList e);

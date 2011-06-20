@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mycalculator.ui'
 **
-** Created: Thu Jun 2 12:34:05 2011
+** Created: Sun Jun 19 23:35:57 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -14,6 +14,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QDoubleSpinBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
@@ -21,6 +22,7 @@
 #include <QtGui/QLineEdit>
 #include <QtGui/QListWidget>
 #include <QtGui/QMainWindow>
+#include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QStatusBar>
@@ -34,6 +36,8 @@ QT_BEGIN_NAMESPACE
 class Ui_MyCalculator
 {
 public:
+    QAction *actionAbout;
+    QAction *actionHelp;
     QWidget *centralWidget;
     QPushButton *bt1;
     QPushButton *bt2;
@@ -79,7 +83,10 @@ public:
     QPushButton *btCos_2;
     QPushButton *btGraph;
     QPushButton *btNegative;
+    QDoubleSpinBox *xi;
+    QDoubleSpinBox *xf;
     QMenuBar *menuBar;
+    QMenu *menuMenu;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -87,7 +94,11 @@ public:
     {
         if (MyCalculator->objectName().isEmpty())
             MyCalculator->setObjectName(QString::fromUtf8("MyCalculator"));
-        MyCalculator->resize(487, 335);
+        MyCalculator->resize(555, 343);
+        actionAbout = new QAction(MyCalculator);
+        actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
+        actionHelp = new QAction(MyCalculator);
+        actionHelp->setObjectName(QString::fromUtf8("actionHelp"));
         centralWidget = new QWidget(MyCalculator);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         bt1 = new QPushButton(centralWidget);
@@ -170,10 +181,10 @@ public:
         btSolve1->setGeometry(QRect(270, 10, 41, 41));
         toolBox = new QToolBox(centralWidget);
         toolBox->setObjectName(QString::fromUtf8("toolBox"));
-        toolBox->setGeometry(QRect(320, -10, 161, 261));
+        toolBox->setGeometry(QRect(320, 0, 241, 261));
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 100, 30));
+        page->setGeometry(QRect(0, 0, 221, 197));
         label = new QLabel(page);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(30, 0, 61, 16));
@@ -209,7 +220,7 @@ public:
         toolBox->addItem(page, QString::fromUtf8("Variables"));
         Funciones = new QWidget();
         Funciones->setObjectName(QString::fromUtf8("Funciones"));
-        Funciones->setGeometry(QRect(0, 0, 151, 197));
+        Funciones->setGeometry(QRect(0, 0, 231, 197));
         horizontalLayoutWidget = new QWidget(Funciones);
         horizontalLayoutWidget->setObjectName(QString::fromUtf8("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(0, 0, 171, 191));
@@ -249,7 +260,7 @@ public:
         toolBox->addItem(Funciones, QString::fromUtf8("Funciones"));
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(10, 260, 441, 26));
+        gridLayoutWidget->setGeometry(QRect(20, 260, 291, 20));
         lo = new QGridLayout(gridLayoutWidget);
         lo->setSpacing(6);
         lo->setContentsMargins(11, 11, 11, 11);
@@ -264,10 +275,24 @@ public:
         btNegative = new QPushButton(centralWidget);
         btNegative->setObjectName(QString::fromUtf8("btNegative"));
         btNegative->setGeometry(QRect(170, 220, 41, 41));
+        xi = new QDoubleSpinBox(centralWidget);
+        xi->setObjectName(QString::fromUtf8("xi"));
+        xi->setGeometry(QRect(330, 250, 61, 23));
+        xi->setMinimum(-100);
+        xi->setMaximum(100);
+        xi->setValue(-10);
+        xf = new QDoubleSpinBox(centralWidget);
+        xf->setObjectName(QString::fromUtf8("xf"));
+        xf->setGeometry(QRect(440, 250, 61, 23));
+        xf->setMinimum(-100);
+        xf->setMaximum(100);
+        xf->setValue(10);
         MyCalculator->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MyCalculator);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 487, 21));
+        menuBar->setGeometry(QRect(0, 0, 555, 21));
+        menuMenu = new QMenu(menuBar);
+        menuMenu->setObjectName(QString::fromUtf8("menuMenu"));
         MyCalculator->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MyCalculator);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -275,6 +300,10 @@ public:
         statusBar = new QStatusBar(MyCalculator);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MyCalculator->setStatusBar(statusBar);
+
+        menuBar->addAction(menuMenu->menuAction());
+        menuMenu->addAction(actionAbout);
+        menuMenu->addAction(actionHelp);
 
         retranslateUi(MyCalculator);
         QObject::connect(btSolve2, SIGNAL(clicked()), btSolve1, SLOT(click()));
@@ -288,6 +317,8 @@ public:
     void retranslateUi(QMainWindow *MyCalculator)
     {
         MyCalculator->setWindowTitle(QApplication::translate("MyCalculator", "MyCalculator", 0, QApplication::UnicodeUTF8));
+        actionAbout->setText(QApplication::translate("MyCalculator", "About", 0, QApplication::UnicodeUTF8));
+        actionHelp->setText(QApplication::translate("MyCalculator", "Help", 0, QApplication::UnicodeUTF8));
         bt1->setText(QApplication::translate("MyCalculator", "1", 0, QApplication::UnicodeUTF8));
         bt2->setText(QApplication::translate("MyCalculator", "2", 0, QApplication::UnicodeUTF8));
         bt3->setText(QApplication::translate("MyCalculator", "3", 0, QApplication::UnicodeUTF8));
@@ -330,7 +361,7 @@ public:
         QTableWidgetItem *___qtablewidgetitem2 = tableFx->item(0, 0);
         ___qtablewidgetitem2->setText(QApplication::translate("MyCalculator", "F1(x)", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem3 = tableFx->item(0, 1);
-        ___qtablewidgetitem3->setText(QApplication::translate("MyCalculator", "X^2 +3x + 5 + 2^-1", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem3->setText(QApplication::translate("MyCalculator", "x^2", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem4 = tableFx->item(1, 0);
         ___qtablewidgetitem4->setText(QApplication::translate("MyCalculator", "F2(x)", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem5 = tableFx->item(2, 0);
@@ -345,6 +376,7 @@ public:
         btCos_2->setText(QApplication::translate("MyCalculator", "tan", 0, QApplication::UnicodeUTF8));
         btGraph->setText(QApplication::translate("MyCalculator", "Graph", 0, QApplication::UnicodeUTF8));
         btNegative->setText(QApplication::translate("MyCalculator", "-", 0, QApplication::UnicodeUTF8));
+        menuMenu->setTitle(QApplication::translate("MyCalculator", "Menu", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

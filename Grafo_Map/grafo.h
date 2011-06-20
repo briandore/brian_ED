@@ -7,7 +7,9 @@
 #include <ctime>
 #include <list>
 #include<QHash>
-
+#include <QStringList>
+#include <QList>
+#include <QColor>
 using namespace std;
 
 
@@ -18,7 +20,8 @@ class nodo {
 
        int x,y;
        QString etiqueta; // Solo para efectos de nombrar con una letra un nodo
-       nodo() {x=0; y=0; etiqueta=""; }
+       nodo() {x=0; y=0; etiqueta=""; selected = false; }
+      bool selected;
 };
 
 class nodoVecino
@@ -41,6 +44,7 @@ class Grafo
 
     QHash<QString, int> posiciones;
     QHash<QString,QHash<QString, QHash<QString, QHash<int, float > > > > todo;
+    QList<int> horas;
     QString DAY;
     int Hour;
 
@@ -52,14 +56,16 @@ class Grafo
 
 
  public:
-  Grafo(int cant);
+  Grafo(int cant, QStringList etiquetas, QStringList dias, QList<int> horas);
   void modificarArista(int n1, int n2, float p);
   void removeArista(int n1, int n2);
+
   void modificarArista(QString  n1, QString n2, float p);
   void removeArista(QString n1, QString n2);
 
   nodo getNodo(int i) ;
   float getPesoArista(int nodo1, int nodo2);
+
   void setPesoArista(int nodo1, int nodo2,float peso) ;
   float getPesoArista(QString n1, QString n2);
   void setPesoArista(QString  n1, QString n2, float p) ;
@@ -73,7 +79,11 @@ class Grafo
   void setDay(QString d);
   void setHour(int h);
 
+  void editPos(QString nodo, int x, int y);
+  int getPos(QString n);
 
+  void setSeleccionados(QStringList c);
+  void addNewDay(QString d);
   string recorrer_profundidad(int n);
   /*Que internamente recorre el grafo en profundidad, recordar recorrer el resto si
     si el arreglo visitados todavia tiene false. PAG 217 */

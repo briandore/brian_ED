@@ -7,10 +7,9 @@
 #include "initialdialog.h"
 #include "renderarea.h"
 #include <QStringList>
-#include <QGraphicsScene>
-#include <QGraphicsEllipseItem>
-#include<QGraphicsLineItem>
-#include<QGraphicsTextItem>
+#include <QMap>
+#include <QVector>
+#include <QMessageBox>
 namespace Ui {
     class GrafoView;
 }
@@ -28,15 +27,24 @@ private:
     Grafo *mygrafo;
     RenderArea * rArea;
     QStringList L;
+    int **routes;
     int size;
-    QList<QGraphicsEllipseItem*> nodos;
-    QList<QGraphicsLineItem*> aristas;
-    QHash<QString,QGraphicsTextItem*> pesos;
-    QGraphicsScene *scene;
+    float **table;
+
+    void floyd();
     void addArista(nodo n1, nodo n2, float p);
     void addNodo(QString ,int x, int y);
     void updateScene();
+    QString camino(int i, int f);
+     QStringList DAYS;
 private slots:
+    void on_actionHelp_triggered();
+    void on_actionAbout_triggered();
+    void on_addDay_clicked();
+    void on_btRutaCortes_clicked();
+    void on_floyd_clicked();
+    void on_EditXY_clicked();
+    void on_btBorrar_clicked();
     void on_UpdateEdit_clicked();
     void on_Dias_currentIndexChanged(QString );
     void on_Horas_currentIndexChanged(QString );

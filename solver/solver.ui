@@ -36,6 +36,7 @@
     <addaction name="actionLoad_words"/>
     <addaction name="actionLoad_Soup"/>
     <addaction name="actionSolve"/>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -161,6 +162,11 @@
   <action name="actionSolve">
    <property name="text">
     <string>solve</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

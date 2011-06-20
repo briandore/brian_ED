@@ -6,7 +6,7 @@ MyCalculator::MyCalculator(QWidget *parent) :
     ui(new Ui::MyCalculator)
 {
     ui->setupUi(this);
-   // f = new QTableWidget(this);
+    this->ui->tableFx->setRowCount(5);
 
 }
 
@@ -22,20 +22,7 @@ QString MyCalculator::previewCheck(QString e){
         (e.replace(a,QString::number(variables[a])));
     }
 return e;
-    /*foreach(QChar a, this->variables.keys()){
-        i= e.indexOf(a);
-        if(i== -1) continue;
 
-        if(i > 0){
-           j =  e.at(i-1).toAscii();
-           if(!(j > 64 && j < 91)){
-               if(i < (e.length() -1)){
-                   j =  e.at(i + 1).toAscii();
-                   if(!(j > 64 && j < 91))
-
-               }
-           }
-    }*/
 }
 
 void MyCalculator::escribe(QString e){
@@ -167,9 +154,16 @@ void MyCalculator::on_btSolve1_clicked()
     QString d = previewCheck(this->ui->expresion->text());
     if(d.startsWith("f(x) = "))
     {
-
+        d.remove("f(x) = ");
+        QStringList L;
+        L.append(d);
+        this->graph(L);
     }
-    this->ui->expresion->setText(QString::number(n.toPostFijo(d)));
+    double ans = n.solve(d);
+    if(ans != INFINITY)
+        this->ui->expresion->setText(QString::number(ans));
+    else
+        this->ui->expresion->setText("sintax error");
 }
 
 void MyCalculator::on_updateVrs_clicked()
@@ -200,18 +194,43 @@ void MyCalculator::updateVars(){
 void MyCalculator::on_btGraph_clicked()
 {
     QStringList l;
-    for(int i = 0; i<2/* this->ui->tableFx->rowCount()*/;i ++){
-   // if(!this->ui->tableFx->item(i,1)->text().isEmpty())
-        l.append(previewCheck(this->ui->tableFx->item(i,1)->text()));
-    qDebug()<<"dididudud";
-   }
-       p= new Plotter(this);
-         this->ui->lo->addWidget(p);
-       p->graph(l,-5,5);
+    for(int i = 0; i< this->ui->tableFx->rowCount();i ++){
+         if(this->ui->tableFx->item(i,1) != 0 &&
+            !this->ui->tableFx->item(i,1)->text().isEmpty())
+            l.append(previewCheck(this->ui->tableFx->item(i,1)->text()));
 
+   }
+
+    this->graph(l);
+}
+
+void MyCalculator::graph(QStringList l){
+    p= new Plotter(this);
+      this->ui->lo->addWidget(p);
+    p->graph(l,this->ui->xi->value(),this->ui->xf->value());
 }
 
 void MyCalculator::on_btNegative_clicked()
 {
     this->escribe("-");
+}
+
+void MyCalculator::on_actionAbout_triggered()
+{
+    QString MSG ="Proyecto de E.D.\n";
+   MSG.append( "creado por Bryan D\n").append( "dore_bryan@unitec.edu");
+   MSG.append("\nBasicamente consiste en una calculadora, donde se puede realizar \nlas operaciones basicas");
+   MSG.append("tambien se pueden asignar variables a exepcion de las X,\n Puede graficar multiples funciones como un plus");
+   QMessageBox::about(this,"About",MSG);
+}
+
+void MyCalculator::on_actionHelp_triggered()
+{
+   QString MSG ="Para graficar basta con escribir las funciones en la tabla de funciones\n";
+   MSG.append("pero no admite cocientes por lo tanto se debe escribir el operardor por ejemplo\n");
+   MSG.append("2*x^3 lo siguiente daria un error 2x^3, tambien es importante recalcar que para los ");
+   MSG.append("numeros negativos se usa el signo - y para el menos el signo ~ , tambien no se puede escribir espacios entre \n");
+  MSG.append("las funciones en ciertas ocaciones pueden ocurrir errores por lo mismo, tambien esta el operador Exponencial representado por\n");
+   MSG.append("e un ejemplo seria 2e3 el resultado es 2000");
+          QMessageBox::about(this,"About",MSG);
 }

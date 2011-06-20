@@ -3,12 +3,16 @@
 RenderArea::RenderArea(QWidget *parent) :
     QWidget(parent)
 {
+    G=0;
 }
 
 void RenderArea::dibujarNodo(nodo n,QPainter &P)
 {
     P.setPen(Qt::black);
-    P.setBrush(Qt::yellow);
+    if(n.selected)
+        P.setBrush(Qt::red);
+    else
+        P.setBrush(Qt::green);
     P.drawEllipse(QPointF(n.x,n.y),12,12);
     P.drawText(n.x-9,n.y+5,n.etiqueta);
 }
@@ -27,17 +31,18 @@ void RenderArea::dibujarArista(nodo n1,nodo n2, float peso, QPainter &P)
 
 void RenderArea::paintEvent(QPaintEvent *event)
 {
-    QPainter painter( this ); // Inicializar el Painter
-    painter.setPen( Qt::black ); // La pluma en como vamos a dibujar es negra
+    QPainter painter( this );
+    painter.setPen( Qt::black );
     painter.setBrush(Qt::white);
     painter.drawRect(0,0,this->width()-1,this->height()-1);
-    qDebug() << this->height();
+
     //TODO : Logica para pintar el grafo
-   for (int i=0;i<G->getSize();i++)
+    if(G == 0)
+        return;
+   for (int i=0;i < G->getSize();i++)
     {
        nodo n = G->getNodo(i);
-       //Primero dibujar todas las aristas que salen de el
-       //
+
        if (!G->esDirigido())
        {
            for (int j=i+1;j<G->getSize();j++)

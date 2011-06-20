@@ -8,6 +8,7 @@
 #include <QTableWidget>
 #include <QList>
 #include "plotter.h"
+#include "QMessageBox"
 namespace Ui {
     class MyCalculator;
 }
@@ -25,9 +26,12 @@ private:
     void escribe(QString e);
     QHash<QChar,double> variables;
     void updateVars();
+    void graph(QStringList l);
     QString previewCheck(QString e);
     Plotter *p;
 private slots:
+    void on_actionHelp_triggered();
+    void on_actionAbout_triggered();
     void on_btNegative_clicked();
     void on_btGraph_clicked();
     void on_updateVrs_clicked();

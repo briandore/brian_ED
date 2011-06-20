@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>684</width>
-    <height>507</height>
+    <height>544</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QComboBox" name="Horas">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>500</x>
+      <y>0</y>
       <width>151</width>
       <height>24</height>
      </rect>
@@ -27,8 +27,8 @@
    <widget class="QComboBox" name="Dias">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>10</y>
+      <x>360</x>
+      <y>0</y>
       <width>131</width>
       <height>24</height>
      </rect>
@@ -69,109 +69,92 @@
      </property>
     </item>
    </widget>
-   <widget class="QStackedWidget" name="stackedWidget">
+   <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>491</width>
-      <height>401</height>
+      <x>500</x>
+      <y>30</y>
+      <width>161</width>
+      <height>141</height>
      </rect>
     </property>
-    <property name="palette">
-     <palette>
-      <active>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>153</green>
-          <blue>153</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </active>
-      <inactive>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>252</red>
-          <green>252</green>
-          <blue>252</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>153</green>
-          <blue>153</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </inactive>
-      <disabled>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>153</green>
-          <blue>153</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>153</green>
-          <blue>153</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </disabled>
-     </palette>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
-    <property name="currentIndex">
-     <number>0</number>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QWidget" name="page">
-     <widget class="QGraphicsView" name="view">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>20</y>
-        <width>481</width>
-        <height>371</height>
-       </rect>
-      </property>
-     </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Nodo Inicio</string>
+     </property>
     </widget>
-    <widget class="QWidget" name="page_2"/>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Nodo Final</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="nodoF">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>90</y>
+       <width>113</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="nodoI">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>113</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
-   <widget class="QStackedWidget" name="stackedWidget_2">
+   <widget class="QToolBox" name="toolBox">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>220</y>
-      <width>141</width>
-      <height>101</height>
+      <x>500</x>
+      <y>180</y>
+      <width>151</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>4</number>
     </property>
-    <widget class="QWidget" name="page_7">
+    <widget class="QWidget" name="page_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>131</width>
+       <height>153</height>
+      </rect>
+     </property>
+     <attribute name="label">
+      <string>Editar</string>
+     </attribute>
      <widget class="QPushButton" name="UpdateEdit">
       <property name="geometry">
        <rect>
@@ -183,16 +166,6 @@
       </property>
       <property name="text">
        <string>Actualizar</string>
-      </property>
-     </widget>
-     <widget class="QDoubleSpinBox" name="peso">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_3">
@@ -208,13 +181,34 @@
        <string>Tiempo en Mins</string>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="page_8">
-     <widget class="QPushButton" name="btRutaCortes">
+     <widget class="QDoubleSpinBox" name="peso">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>30</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_4">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>141</width>
+       <height>126</height>
+      </rect>
+     </property>
+     <attribute name="label">
+      <string>Ruta Corta</string>
+     </attribute>
+     <widget class="QPushButton" name="btRutaCortes">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>0</y>
         <width>94</width>
         <height>24</height>
        </rect>
@@ -223,19 +217,189 @@
        <string>Ruta Corta</string>
       </property>
      </widget>
-     <widget class="QLCDNumber" name="lcdNumber">
+     <widget class="QListWidget" name="route">
       <property name="geometry">
        <rect>
-        <x>13</x>
-        <y>42</y>
-        <width>91</width>
-        <height>31</height>
+        <x>0</x>
+        <y>40</y>
+        <width>141</width>
+        <height>81</height>
        </rect>
       </property>
      </widget>
+     <widget class="QLineEdit" name="timeCorto">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>141</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="page_9">
+    <widget class="QWidget" name="page_5">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>131</width>
+       <height>133</height>
+      </rect>
+     </property>
+     <attribute name="label">
+      <string>Borrar Arista</string>
+     </attribute>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>0</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Borrar Arista</string>
+      </property>
+     </widget>
      <widget class="QPushButton" name="btBorrar">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>94</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Borrar </string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page">
+     <attribute name="label">
+      <string>Editar Posicion</string>
+     </attribute>
+     <widget class="QLineEdit" name="Nodo">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>113</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="X">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>52</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>15</number>
+      </property>
+      <property name="maximum">
+       <number>500</number>
+      </property>
+      <property name="singleStep">
+       <number>10</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="Y">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>60</y>
+        <width>52</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>15</number>
+      </property>
+      <property name="maximum">
+       <number>500</number>
+      </property>
+      <property name="singleStep">
+       <number>10</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>55</width>
+        <height>15</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nodo</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>80</y>
+        <width>21</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>80</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Y</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="EditXY">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>100</y>
+        <width>94</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Editar</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <attribute name="label">
+      <string>Añadir dia</string>
+     </attribute>
+     <widget class="QLineEdit" name="newDay">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>113</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="addDay">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -245,85 +409,67 @@
        </rect>
       </property>
       <property name="text">
-       <string>Borrar </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>20</y>
-        <width>81</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Borrar Arista</string>
+       <string>addDay</string>
       </property>
      </widget>
     </widget>
    </widget>
-   <widget class="QFrame" name="frame">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>40</y>
-      <width>161</width>
-      <height>171</height>
+      <x>10</x>
+      <y>10</y>
+      <width>481</width>
+      <height>451</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+    <property name="currentIndex">
+     <number>1</number>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Mapa</string>
+     </attribute>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>451</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="views"/>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Tabla de Floyd</string>
+     </attribute>
+     <widget class="QTableWidget" name="tabla">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>471</width>
+        <height>421</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="floyd">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>460</y>
+      <width>94</width>
+      <height>24</height>
+     </rect>
     </property>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>81</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Nodo Inicio</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>80</y>
-       <width>81</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Nodo Final</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="nodoF">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>100</y>
-       <width>113</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="nodoI">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>40</y>
-       <width>113</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
+    <property name="text">
+     <string>Update Table</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -335,6 +481,14 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionHelp"/>
+   </widget>
+   <addaction name="menuMenu"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -345,6 +499,16 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

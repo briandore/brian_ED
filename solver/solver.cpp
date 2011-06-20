@@ -46,7 +46,7 @@ void solver::on_actionLoad_words_triggered()
 }
 
 void solver::liberar(){
-    for(int i=0; i<this->lenY; i++) {
+    for(int i = 0; i<this->lenY; i++) {
             free(this->sopa[i]);
             this->sopa[i] = NULL;
         }
@@ -65,6 +65,8 @@ void solver::on_actionLoad_Soup_triggered()
     QLabel *l ;
     QTableWidgetItem *item;
     QFile file(f);
+
+;
     if(file.open(QIODevice::ReadOnly)){
          QTextStream a(&file);
        //  QString len = a.readLine();
@@ -76,8 +78,8 @@ void solver::on_actionLoad_Soup_triggered()
          while(!a.atEnd()){
             QString i = a.readLine().trimmed(); int at = 0;
              if(y== 0){
-                 for(int i = 0; i<this->ui->soup->count(); i++)
-                    this->ui->soup->removeItem(this->ui->soup->itemAt(i));
+                 while(this->ui->soup->count() > 0)
+                    this->ui->soup->removeItem(this->ui->soup->itemAt(0));
 
                   this->lenX = i.length();
                   this->lenY = lenX;this->crearArray();
@@ -263,4 +265,18 @@ void solver::on_actionSolve_triggered()
     this->ui->lcdTime->display(tim);
     this->ui->FoundedList->addItems(this->ans);
     this->ui->lcdFound->display(this->ans.count());
+}
+
+void solver::on_actionAbout_triggered()
+{
+    QString msg = "Proyecto E.D.";
+    msg.append("\nCreado por Brian D, dore_bryan@unitec.edu para preguntas");
+    msg.append("\nConsiste en un programa para resolver una sopa de letras de nxn");
+    msg.append("\nLa eficiencia se debe a que utilize un arbol nario o por lo menos lo simule");
+    msg.append("\n practicamente es lo que hace google con las busquedas instantaneas, las que no cumplen con las ");
+    msg.append("\ncondicionan se eliminan y si no hay sugerencia se para la busqueda");
+    msg.append("\n En promedio en mi computadora con KUBUNTU 11.04 se tarda 24 milisegundos con 50 x 50");
+    msg.append("\nen otros SO puede variar ya que linux le da prioridad a procesamiento y no grafica, lo cual potencializa mi programa");
+    msg.append("\n PEQUENHO detalle no sirve el limpiar por lo tanto hay cerrarlo y correr de nuevo para cargar otra sopa");
+    QMessageBox::about(this,"About", msg);
 }

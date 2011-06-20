@@ -6,11 +6,11 @@ calculator::calculator()
 
 double calculator::toPostFijo(QString e){
    e.prepend("("); e.append(")");
-   QStack<QString> s;
-   QStack <QString> ops; QString temp ,tmop;
+
+   QStack <QString> ops;
    QStringList final;
    QStringList ne(getTokens(e));
-    bool b = false;
+
    foreach(QString d, ne){
        if(opt.getOperator(d)!= opt.NONE){
 
@@ -30,7 +30,7 @@ double calculator::toPostFijo(QString e){
        }
    }
 
-  // qDebug()<<final;
+
    return evaluar(final);
 
 }
@@ -41,33 +41,41 @@ double calculator::evaluar(QStringList e){
 double t;
     foreach(QString d, e){
 //qDebug()<<pila;
-      if(d == "+")
-            pila.push(pila.pop() + pila.pop());
-      else if(d == "~"){
-          t = pila.pop();
-            pila.push(  pila.pop()-t);
-        }
-      else if(d == "*")
-            pila.push(pila.pop() * pila.pop());
-      else if(d == "/")
-            pila.push(pow(pila.pop(),-1) * pila.pop());
-      else if(d == "COS")
-            pila.push(cos(pila.pop()));
-      else if(d == "SIN")
-            pila.push(sin(pila.pop()));
-      else if(d == "^"){
-            t = pila.pop();
-            pila.push(pow(pila.pop(),t));
-      }else if(d == "E"){
-           t = pila.pop();
-             pila.push(pila.pop()*pow(10,t));
-      }  else
-            pila.push(d.toDouble());
+        if(pila.count() > 1){
+            if(d == "+" )
+              pila.push(pila.pop() + pila.pop());
+            else if(d == "~" ){
+               t = pila.pop();
+               pila.push(  pila.pop()-t);
+            }
+            else if(d == "*")
+                 pila.push(pila.pop() * pila.pop());
+             else if(d == "/")
+                 pila.push(pow(pila.pop(),-1) * pila.pop());
+             else if(d == "^"){
+                 t = pila.pop();
+                 pila.push(pow(pila.pop(),t));
+             }else if(d == "E"){
+                 t = pila.pop();
+                 pila.push(pila.pop()*pow(10,t));
+             }
+             else
+                 pila.push(d.toDouble());
+         }else{
+            if(d == "+" || d == "~" || d == "*" || d == "/")
+                return INFINITY;
 
+            else if(d == "COS")
+                pila.push(cos(pila.pop()));
+            else if(d == "SIN")
+                pila.push(sin(pila.pop()));
+            else
+                 pila.push(d.toDouble());
+         }
     }
-if(pila.count()> 0)
+if(pila.count()== 1)
     return pila.pop();
-return 0;
+return INFINITY;
 }
 
 
@@ -108,4 +116,8 @@ QStringList calculator::getTokens(QString e){
     }
    //qDebug()<<list;
    return list;
+}
+
+double calculator::solve(QString e){
+    return this->toPostFijo(e);
 }

@@ -2,11 +2,14 @@
 
 
 
-Grafo::Grafo(int cantidad_nodos){
+Grafo::Grafo(int cantidad_nodos, QStringList l, QStringList dias, QList<int> horas){
     int fila;
     size = cantidad_nodos;
+    DAY = "DOMINGO";
+    Hour = 0;
+    matriz = new float*[cantidad_nodos]; // Esto crea todas las filas
+ this->horas.append(horas);
 
-   matriz = new float*[cantidad_nodos]; // Esto crea todas las filas
     for (fila=0; fila<cantidad_nodos; fila++)
     {
         matriz[fila] = new float[cantidad_nodos]; // Esto crea todas las columnas
@@ -22,13 +25,18 @@ Grafo::Grafo(int cantidad_nodos){
     // Inicializar el indice de nodos
     nodos = new nodo[cantidad_nodos];
     for(int i=0; i<cantidad_nodos; i++)
-        nodos[i].etiqueta.setNum(i);
+        nodos[i].etiqueta = l.at(i);
 
     for(int i=0; i< this->size; i++)
-        this->todo[QString::number(i)];
-
+        for(int j = 0; j < this->size; j++)
+            foreach(QString dia, dias )
+                foreach(int hora, horas)
+                    if(i != j){
+                        this->todo[nodos[i].etiqueta][nodos[j].etiqueta][dia][hora] = INFINITO;
+                    this->todo[nodos[j].etiqueta][nodos[i].etiqueta][dia][hora] = INFINITO;
+                    }
     for(int i = 0; i< this->size; i++){
-        this->posiciones.insert(QString::number(i),i);
+        this->posiciones.insert(nodos[i].etiqueta,i);
     }
 
     this->visitados =  new bool[cantidad_nodos];
@@ -124,7 +132,8 @@ void Grafo::setEtiquetaNodo(int nodo1,string etiqueta)
 
 void Grafo::setXYNodo(int nodo1, int x, int y)
 {
-
+    this->nodos[nodo1].x = x;
+    this->nodos[nodo1].y = y;
 }
 
 bool Grafo::checkColision(int limite,int candidato_x,int candidato_y)
@@ -227,8 +236,14 @@ void Grafo::updateData(){
 
     for(int i = 0; i < this->size; i++){
         for(int j = (i +1); j<this->size; j++){
+            qDebug()<<i<<":"<<j;
+            qDebug()<<"unas:"<<this->todo[this->nodos[i].etiqueta][this->nodos[j].etiqueta][DAY][Hour];
+            qDebug()<<"dos:"<<this->todo[this->nodos[j].etiqueta][this->nodos[i].etiqueta][DAY][Hour];
+
             this->todo[this->nodos[i].etiqueta][this->nodos[j].etiqueta][DAY][Hour] = matriz[i][j];
             this->todo[this->nodos[j].etiqueta][this->nodos[i].etiqueta][DAY][Hour] = matriz[j][i];
+            qDebug()<<"update1:"<<this->todo[this->nodos[i].etiqueta][this->nodos[j].etiqueta][DAY][Hour];
+            qDebug()<<"update2:"<<this->todo[this->nodos[j].etiqueta][this->nodos[i].etiqueta][DAY][Hour];
         }
     }
 }
@@ -242,7 +257,41 @@ void Grafo::setDay(QString d){
 }
 
 void Grafo::setHour(int h){
+    qDebug()<<"la hora "<<h;
     this->updateData();
     this->Hour = h;
     this->reloadData();
+}
+
+void Grafo::editPos(QString nodo, int x, int y){
+   if(posiciones.contains(nodo))
+    this->setXYNodo(posiciones[nodo],x,y);
+}
+
+int Grafo::getPos(QString n){
+    if(this->posiciones.contains(n))
+        return posiciones[n];
+    return -1;
+}
+
+void Grafo::setSeleccionados(QStringList c){
+    for(int i = 0; i< size; i++)
+        this->nodos[i].selected = false;
+
+    foreach(QString s, c){
+        if(this->posiciones.contains(s)){
+            int n = this->posiciones[s];
+            this->nodos[n].selected = true;
+        }
+    }
+}
+
+void Grafo::addNewDay(QString d){
+    for(int i=0; i< this->size; i++)
+        for(int j = 0; j < this->size; j++)
+           foreach(int hora, horas)
+                    if(i != j){
+                        this->todo[nodos[i].etiqueta][nodos[j].etiqueta][d][hora] = INFINITO;
+                    this->todo[nodos[j].etiqueta][nodos[i].etiqueta][d][hora] = INFINITO;
+                    }
 }
